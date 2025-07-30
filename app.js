@@ -33,19 +33,7 @@ app.get("/", (req, res) => {
 app.post("/submit", async (req, res) => {
   const { film, name, email, persona } = req.body;
 
-  console.log("📩 Incoming reservation:");
-  console.log("Film:", film);
-  console.log("Name:", name);
-  console.log("Email:", email);
-  console.log("Persona:", persona);
-
   try {
-    console.log("🔑 Using SMTP settings:");
-    console.log("HOST:", process.env.SMTP_HOST);
-    console.log("PORT:", process.env.SMTP_PORT);
-    console.log("SECURE:", process.env.SMTP_SECURE);
-    console.log("USER:", process.env.SMTP_USER);
-
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT),
@@ -59,11 +47,11 @@ app.post("/submit", async (req, res) => {
     const info = await transporter.sendMail({
       from: `"Rezervim Biblioteka Verore" <${process.env.FROM_EMAIL}>`,
       to: email,
+      cc: process.env.FROM_EMAIL,
       subject: `${film}`,
       text: `Pershendetje ${name}. Ju konfirmojme rezervimin tuaj per te ndjekur ${film}. Numri i biletave te rezervuara eshte: ${persona}.`,
     });
 
-    console.log("✅ Email sent:", info.response);
     res.status(200).send("Email sent: " + info.response);
   } catch (error) {
     console.error("❌ Failed to send email:", error);
