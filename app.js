@@ -45,7 +45,7 @@ app.post("/submit", async (req, res) => {
     });
 
     const info = await transporter.sendMail({
-      from: `"Rezervim Biblioteka Verore" <${process.env.FROM_EMAIL}>`,
+      from: `"Rezervim Kinema Verore" <${process.env.FROM_EMAIL}>`,
       to: email,
       cc: process.env.FROM_EMAIL,
       subject: `${film}`,
