@@ -44,15 +44,21 @@ app.post("/submit", async (req, res) => {
       },
     });
 
-    const info = await transporter.sendMail({
+    await transporter.sendMail({
       from: `"Rezervim Kinema Verore" <${process.env.FROM_EMAIL}>`,
       to: email,
-      cc: process.env.FROM_EMAIL,
       subject: `${film}`,
-      text: `Pershendetje ${name}. Ju konfirmojme rezervimin tuaj per te ndjekur ${film}. Numri i biletave te rezervuara eshte: ${persona}.`,
+      text: `Përshëndetje ${name},\n\nJu konfirmojmë rezervimin tuaj për të ndjekur ${film}.\nNumri i biletave të rezervuara: ${persona}.\n\nJu mirëpresim!`,
     });
 
-    res.status(200).send("Email sent: " + info.response);
+    await transporter.sendMail({
+      from: `"Rezervim Kinema Verore" <${process.env.FROM_EMAIL}>`,
+      to: process.env.FROM_EMAIL,
+      subject: `${film} - ${name} - ${persona}`,
+      text: `Rezervim i ri:\n\nFilmi: ${film}\n\n\nEmri: ${name}\nEmail: ${email}\nNr.personave: ${persona}`,
+    });
+
+    res.status(200).send("✅ Emails sent");
   } catch (error) {
     console.error("❌ Failed to send email:", error);
     res.status(500).send("Failed to send email");
