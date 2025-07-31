@@ -55,7 +55,7 @@ app.post("/submit", async (req, res) => {
       from: `"Rezervim Kinema Verore" <${process.env.FROM_EMAIL}>`,
       to: process.env.FROM_EMAIL,
       subject: `${film} - ${name} - ${persona}`,
-      text: `Rezervim i ri:\n\nFilmi: ${film}\n\n\nEmri: ${name}\nEmail: ${email}\nNr.personave: ${persona}`,
+      text: `Rezervim i ri:\n\nFilmi: ${film}\n\nEmri: ${name}\nEmail: ${email}\nNr.personave: ${persona}`,
     });
 
     res.status(200).send("✅ Emails sent");
