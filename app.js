@@ -72,6 +72,6 @@ app.use("/api", movieRoutes);
 app.use("/api", reservationRoutes);
 
 const PORT = process.env.PORT || 3107;
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
 });
