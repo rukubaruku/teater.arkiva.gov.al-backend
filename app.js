@@ -15,15 +15,16 @@ const reservationRoutes = require("./routes/reservationRoutes");
 
 connectDB();
 
-const corsOptions = {
-  origin: ["https://teater.arkiva.gov.al", "http://localhost:3000"],
-  methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-};
+app.use(
+  cors({
+    origin: "https://teater.arkiva.gov.al",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+app.options("*", cors());
 
 app.use(express.json());
 
